@@ -1,5 +1,7 @@
 package com.example.demo.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,19 @@ public class ProductResource {
 		
 		PageRequest pageRequest = PageRequest.of(page, size);
 		Page<ProductDTO> list = service.find(pageRequest);
+		return ResponseEntity.ok(list);
+	}
+	
+	//@GetMapping
+	public ResponseEntity<Page<ProductDTO>> findAllProductsCategoriesPageable(PageRequest pageRequest) {
+		
+		Page<ProductDTO> list = service.findProductsAndCategoriesPage(pageRequest);
+		return ResponseEntity.ok(list);
+	}
+	
+	//@GetMapping
+	public ResponseEntity<List<ProductDTO>> findAllProductsCategories() {
+		List<ProductDTO> list = service.findProductsAndCategories();
 		return ResponseEntity.ok(list);
 	}
 }
